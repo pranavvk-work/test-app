@@ -1,26 +1,166 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light theme variables (default) - Exact values from Figma */
+  --color-primary: #0066CC;
+  --color-background-primary: #FFFFFF;
+  --color-background-secondary: #F9FAFB;
+  --color-text-primary: #000000; /* Updated to match Figma */
+  --color-text-secondary: #4B5563;
+  --color-text-tertiary: #9CA3AF;
+  --color-text-light: #D1D5DB;
+  --color-footer-bg: #111827;
+  --color-footer-text: #9CA3AF;
+  --color-card-shadow: rgba(0, 0, 0, 0.1);
+  --color-input-border: #D1D5DB;
+  --color-input-placeholder: #ADAEBC;
+  --color-header-bg: rgba(255, 255, 255, 0.9);
+  --color-card-bg: #FFFFFF; /* Added from Figma */
+  --color-icon-bg: #F3F8FF; /* Added from Figma for icon backgrounds */
+  --color-input-bg: #FFFFFF; /* Added for form inputs */
+  --color-success-bg: #DCFCE7; /* Added for success messages */
+  --color-success-text: #166534; /* Added for success messages */
+  --color-border: #E5E7EB; /* Added for borders */
+}
+
+.dark {
+  /* Dark theme variables */
+  --color-primary: #3B82F6;
+  --color-background-primary: #111827;
+  --color-background-secondary: #1F2937;
+  --color-text-primary: #F9FAFB;
+  --color-text-secondary: #D1D5DB;
+  --color-text-tertiary: #9CA3AF;
+  --color-text-light: #E5E7EB;
+  --color-footer-bg: #0F172A;
+  --color-footer-text: #9CA3AF;
+  --color-card-shadow: rgba(0, 0, 0, 0.3);
+  --color-input-border: #374151;
+  --color-input-placeholder: #6B7280;
+  --color-header-bg: rgba(17, 24, 39, 0.9);
+  --color-card-bg: #1F2937; /* Added for dark mode cards */
+  --color-icon-bg: rgba(59, 130, 246, 0.2); /* Added for dark mode icon backgrounds */
+  --color-input-bg: #111827; /* Added for form inputs */
+  --color-success-bg: #064E3B; /* Added for success messages */
+  --color-success-text: #6EE7B7; /* Added for success messages */
+  --color-border: #374151; /* Added for borders */
+}
+
+/* Custom utility classes that use CSS variables */
+.bg-theme-primary {
+  background-color: var(--color-background-primary);
+}
+
+.bg-theme-secondary {
+  background-color: var(--color-background-secondary);
+}
+
+.bg-theme-card {
+  background-color: var(--color-card-bg);
+}
+
+.bg-theme-icon {
+  background-color: var(--color-icon-bg);
+}
+
+.text-theme-primary {
+  color: var(--color-text-primary);
+}
+
+.text-theme-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-theme-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+.text-theme-light {
+  color: var(--color-text-light);
+}
+
+.text-theme-primary-color {
+  color: var(--color-primary);
+}
+
+.bg-theme-primary-color {
+  background-color: var(--color-primary);
+}
+
+.border-theme-input {
+  border-color: var(--color-input-border);
+}
+
+.placeholder-theme {
+  color: var(--color-input-placeholder);
+}
+
+.bg-theme-input {
+  background-color: var(--color-input-bg);
+}
+
+.border-theme-border {
+  border-color: var(--color-border);
+}
+
+.bg-theme-success-bg {
+  background-color: var(--color-success-bg);
+}
+
+.text-theme-success {
+  color: var(--color-success-text);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-poppins);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Utility classes for common Figma-based styles */
+.section-padding {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+.container-custom {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.card-shadow {
+  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.1), 0px 4px 6px 0px rgba(0, 0, 0, 0.1);
+}
+
+.header-shadow {
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 }

@@ -1,0 +1,2 @@
+This is a placeholder for the cyber background image.
+In a real project, this would be an actual image file (jpg, png, etc.).
