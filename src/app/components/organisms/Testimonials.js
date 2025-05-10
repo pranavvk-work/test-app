@@ -1,10 +1,8 @@
-"use client";
-
-import { useData } from "@/app/context/DataContext";
+import { getTestimonialsData } from "@/app/lib/data";
 import TestimonialCard from "@/app/components/molecules/TestimonialCard";
 
-export default function Testimonials() {
-  const { testimonials } = useData();
+export default async function Testimonials() {
+  const testimonials = await getTestimonialsData();
   
   return (
     <section id="testimonials" className="py-16 bg-theme-secondary">

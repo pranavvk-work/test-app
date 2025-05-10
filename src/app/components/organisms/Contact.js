@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { useData } from "@/app/context/DataContext";
+import { useState, useEffect } from "react";
+import { getCompanyData } from "@/app/lib/data";
 import { IconPerson, IconPhone, IconLocation } from "@/app/components/atoms/Icons";
 
 export default function Contact() {
-  const { company } = useData();
+  const [company, setCompany] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,7 +13,16 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const companyData = await getCompanyData();
+      setCompany(companyData);
+    };
+
+    fetchData();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -21,11 +30,11 @@ export default function Contact() {
       [name]: value
     }));
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
@@ -35,21 +44,25 @@ export default function Contact() {
         email: "",
         message: ""
       });
-      
+
       // Reset success message after 5 seconds
       setTimeout(() => {
         setSubmitSuccess(false);
       }, 5000);
     }, 1500);
   };
-  
+
+  if (!company) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section id="contact" className="py-16 bg-theme-primary">
       <div className="container-custom mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-theme-primary-color mb-12">
           Get in Touch
         </h2>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div className="space-y-8">
@@ -66,7 +79,7 @@ export default function Contact() {
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-theme-icon w-10 h-10 rounded-lg flex items-center justify-center mr-4">
                 <IconPhone className="w-5 h-5 text-theme-primary-color" />
@@ -75,7 +88,7 @@ export default function Contact() {
                 <h3 className="text-lg font-bold text-theme-primary mb-1">
                   Phone
                 </h3>
-                <a 
+                <a
                   href={`tel:${company.contact.phone.replace(/\s/g, '')}`}
                   className="text-theme-secondary hover:text-theme-primary-color transition-colors"
                 >
@@ -83,7 +96,7 @@ export default function Contact() {
                 </a>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-theme-icon w-10 h-10 rounded-lg flex items-center justify-center mr-4">
                 <IconLocation className="w-5 h-5 text-theme-primary-color" />
@@ -97,7 +110,7 @@ export default function Contact() {
                 </p>
               </div>
             </div>
-            
+
             {/* Map placeholder */}
             <div className="bg-theme-card rounded-lg h-64 overflow-hidden card-shadow">
               <div className="w-full h-full flex items-center justify-center text-theme-tertiary">
@@ -105,13 +118,13 @@ export default function Contact() {
               </div>
             </div>
           </div>
-          
+
           {/* Contact Form */}
           <div className="bg-theme-card rounded-xl p-6 card-shadow">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label 
-                  htmlFor="name" 
+                <label
+                  htmlFor="name"
                   className="block text-theme-primary mb-2"
                 >
                   Name
@@ -127,10 +140,10 @@ export default function Contact() {
                   placeholder="Your name"
                 />
               </div>
-              
+
               <div>
-                <label 
-                  htmlFor="email" 
+                <label
+                  htmlFor="email"
                   className="block text-theme-primary mb-2"
                 >
                   Email
@@ -146,10 +159,10 @@ export default function Contact() {
                   placeholder="your@email.com"
                 />
               </div>
-              
+
               <div>
-                <label 
-                  htmlFor="message" 
+                <label
+                  htmlFor="message"
                   className="block text-theme-primary mb-2"
                 >
                   Message
@@ -165,7 +178,7 @@ export default function Contact() {
                   placeholder="How can we help you?"
                 ></textarea>
               </div>
-              
+
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -173,10 +186,10 @@ export default function Contact() {
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
               </button>
-              
+
               {submitSuccess && (
                 <div className="mt-4 p-3 bg-theme-success-bg text-theme-success rounded-lg">
-                  Thank you for your message! We&apos;ll get back to you soon.
+                  Thank you for your message! We'll get back to you soon.
                 </div>
               )}
             </form>

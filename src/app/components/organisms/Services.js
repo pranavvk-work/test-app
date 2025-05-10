@@ -1,10 +1,8 @@
-"use client";
-
-import { useData } from "@/app/context/DataContext";
+import { getServicesData } from "@/app/lib/data";
 import ServiceCard from "@/app/components/molecules/ServiceCard";
 
-export default function Services() {
-  const { services } = useData();
+export default async function Services() {
+  const services = await getServicesData();
   
   return (
     <section id="services" className="py-16 bg-theme-primary">

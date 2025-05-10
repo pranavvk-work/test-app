@@ -1,10 +1,8 @@
-"use client";
-
-import { useData } from "@/app/context/DataContext";
+import { getCompanyData } from "@/app/lib/data";
 import Image from "next/image";
 
-export default function About() {
-  const { company } = useData();
+export default async function About() {
+  const company = await getCompanyData();
   
   return (
     <section id="about" className="py-16 bg-theme-secondary">
